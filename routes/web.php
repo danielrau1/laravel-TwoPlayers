@@ -15,9 +15,11 @@ Route::get('/','PagesController@index');
 
 Route::get('/register','PagesController@register');
 
-//Route::get('/test','PagesController@register');
 
-//[1]
+
+//[1],[3]
 Route::post('test', [
     'uses' => 'PagesController@createUser'
 ]);
+
+
