@@ -12,8 +12,8 @@ class PagesController extends Controller
 {
     public function index()
     {
-     $title = "Welcome to TwoPlayers!";
-        return view('pages/index')->with('title',$title);
+
+        return view('pages/index');
         }
 
 
@@ -22,12 +22,43 @@ class PagesController extends Controller
         return view('pages/register');
     }
 
+
+    public function createUser()
+    {
+        /*
+        //[2]
+        $data=[
+        'name' => $_POST['name'],
+            'password' => $_POST['password']
+        ];
+        return view('pages/test')->with($data);//[1], [2]
+        */
+
+        //[3]
+        $name = $_POST['name'];
+        $password = $_POST['password'];
+
+        //[3.1]
+        $results = DB::select('select * from users where name = :name and password=:password ', ['name' => $name,'password'=>$password]);
+        $check= sizeof($results);
+        if($check==0){
+            DB::insert('insert into users (name, password) values (?, ?)', [$name, $password]);
+            return view('pages/login');
+        }
+       else{
+           return view('pages/index');
+       }
+
+
+    }
+
     //[4]
     public function login()
     {
         $message=""; //[4.1b]
         return view('pages/login')->with('message',$message);
     }
+
 
     //[4]
     public function loginUser()
@@ -52,25 +83,7 @@ class PagesController extends Controller
 
 
 
-    public function createUser()
-    {
-        /*
-        //[2]
-        $data=[
-        'name' => $_POST['name'],
-            'password' => $_POST['password']
-        ];
-        return view('pages/test')->with($data);//[1], [2]
-        */
 
-        //[3]
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        DB::insert('insert into users (name, password) values (?, ?)', [$name, $password]);
-        return view('pages/register');
-
-
-    }
 
 
 
