@@ -22,4 +22,9 @@ Route::post('test', [
     'uses' => 'PagesController@createUser'
 ]);
 
-
+//[4]login
+Route::get('/login','PagesController@login');
+//[4]
+Route::post('/login', [
+    'uses' => 'PagesController@loginUser'
+]);

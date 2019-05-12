@@ -22,6 +22,34 @@ class PagesController extends Controller
         return view('pages/register');
     }
 
+    //[4]
+    public function login()
+    {
+        $message=""; //[4.1b]
+        return view('pages/login')->with('message',$message);
+    }
+
+    //[4]
+    public function loginUser()
+    {
+        $data=[
+        'name' => $_POST['name'],
+            'password'=>$_POST['password']
+                ];
+
+        //[4.1a]
+        $results = DB::select('select * from users where name = :name and password=:password ', ['name' => $data['name'],'password'=>$data['password']]);
+        $check= sizeof($results);
+        if($check==1) return view('pages/user')->with($data);
+        else{
+            $message="No such user";
+            return view('pages/login')->with('message',$message);
+        }
+
+
+
+    }
+
 
 
     public function createUser()
