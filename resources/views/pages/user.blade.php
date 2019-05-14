@@ -31,6 +31,17 @@ Hi <?php echo $name; ?>
 
 
 
+{{--[5.2b]--}}
+@if(count($tasks)>0)
+    <ul>
+    @foreach($tasks as $task)
+            <li>{{$task->task}}</li>
+    @endforeach
+    </ul>
+        @else
+    <p>no posts found</p>
+
+@endif
 
 
 

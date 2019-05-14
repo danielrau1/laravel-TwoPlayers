@@ -73,10 +73,11 @@ class PagesController extends Controller
         $check= sizeof($results);
         if($check==1) {
 
-
-
+            //[5.2a] once logged-in get the user's tasks to disply
+            $tasks = DB::select('select * from tasks where user = :name ', ['name' => $name]);
             $data=[
               'name' => $name,
+                'tasks' =>$tasks
 
             ];
             return view('pages/user')->with($data);
@@ -96,7 +97,16 @@ public function createTask(){
     $task = $_POST['task'];
     DB::insert('insert into tasks (user, task) values (?, ?)', [$name, $task]);
 
-    return view('pages/user')->with('name',$name);
+
+    //[5.2c] after submitting a task when go back to the user.php view need to have the tasks again
+    $tasks = DB::select('select * from tasks where user = :name ', ['name' => $name]);
+    $data=[
+        'name' => $name,
+        'tasks' =>$tasks
+
+    ];
+
+    return view('pages/user')->with($data);
 }
 
 
