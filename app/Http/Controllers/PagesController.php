@@ -63,25 +63,41 @@ class PagesController extends Controller
     //[4]
     public function loginUser()
     {
-        $data=[
-        'name' => $_POST['name'],
-            'password'=>$_POST['password']
-                ];
+
+        $name = $_POST['name'];
+            $password=$_POST['password'];
+
 
         //[4.1a]
-        $results = DB::select('select * from users where name = :name and password=:password ', ['name' => $data['name'],'password'=>$data['password']]);
+        $results = DB::select('select * from users where name = :name and password=:password ', ['name' => $name,'password'=>$password]);
         $check= sizeof($results);
-        if($check==1) return view('pages/user')->with($data);
+        if($check==1) {
+
+
+
+            $data=[
+              'name' => $name,
+
+            ];
+            return view('pages/user')->with($data);
+        }
+
         else{
             $message="No such user";
             return view('pages/login')->with('message',$message);
         }
 
 
-
     }
 
+    //[5.1c]
+public function createTask(){
+    $name = $_POST['name'];
+    $task = $_POST['task'];
+    DB::insert('insert into tasks (user, task) values (?, ?)', [$name, $task]);
 
+    return view('pages/user')->with('name',$name);
+}
 
 
 

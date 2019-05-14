@@ -28,3 +28,9 @@ Route::get('/login','PagesController@login');
 Route::post('/login', [
     'uses' => 'PagesController@loginUser'
 ]);
+
+
+
+//[5.1b]
+Route::post("user","PagesController@createTask");
+
