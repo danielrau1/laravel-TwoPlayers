@@ -34,3 +34,9 @@ Route::post('/login', [
 //[5.1b]
 Route::post("user","PagesController@createTask");
 
+//[5.3b]
+Route::get('/edit/{id}','TasksController@editPage');
+
+
+//[5.4c]
+Route::get("tasks/editTask","PagesController@editTask");

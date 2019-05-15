@@ -35,7 +35,8 @@ Hi <?php echo $name; ?>
 @if(count($tasks)>0)
     <ul>
     @foreach($tasks as $task)
-            <li>{{$task->task}}</li>
+                                                            {{--[5.3a]--}}
+            <li>{{$task->task}}  <a href="http://localhost/TwoPlayers/public/edit/{{$task->id}}" >Edit</a></li>
     @endforeach
     </ul>
         @else
